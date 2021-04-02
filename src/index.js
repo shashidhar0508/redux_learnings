@@ -47,17 +47,19 @@ store.subscribe(() => {
 // STEP:4 (after every below line the above reducer function will be called)
 // Actions
 // After "Actions", "reducer" function will be called, so after every below line the above reducer function will be called
-store.dispatch({ type: "INC", payload: 1 });
+store.dispatch({ type: "INC", payload: 1 });  //synchronous dispatching
 store.dispatch({ type: "INC", payload: 3 });
 store.dispatch({ type: "DEC", payload: 10 });
 store.dispatch({ type: "Mult", payload: 5 }); */
 //Example 1 (End)
 
+// **********************************************************
+
 // Example 2 (start)
-import { createStore, applyMiddleware, combineReducers } from "redux";
+/* import { createStore, applyMiddleware, combineReducers } from "redux";
 import logger from "redux-logger";
 //npm install redux-devtools-extension --save-dev
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension"; //For debug extension in chrome extensions
 
 const useReducer = (state = {}, action) => {
   switch (action.type) {
@@ -95,5 +97,78 @@ store.subscribe(() => {
 // below lines will call "useReducer" function
 store.dispatch({ type: "CHANGE_NAME", payload: "Shashi" });
 store.dispatch({ type: "CHANGE_NAME", payload: "Shashidhar rao P" });
-store.dispatch({ type: "CHANGE_AGE", payload: "26" });
+store.dispatch({ type: "CHANGE_AGE", payload: "26" }); */
 // Example 2 (end)
+
+// **********************************************************
+
+// Example 3 (start)  //Thunk and axios to invoke REST API
+
+import { createStore, applyMiddleware } from "redux";
+import logger from "redux-logger";
+import thunk from "redux-thunk"; //npm install redux-thunk
+import { composeWithDevTools } from "redux-devtools-extension"; //For debug extension in chrome extensions
+import axios from "axios"; //npm install axios
+
+/* redux-thunk :
+  It is a middleware that allows you to asynchronously dipatch your actions in the 
+  reducer while data is comming from the server not blocking the page(by using loading page etc ).  */
+
+// STEP 1.0
+const initialState = {
+  fetching: false, // for showing ajax loader
+  fetched: false, // after fetched removing above ajax loader
+  users: [],
+  error: null,
+};
+
+// STEP 5.0
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "FETCH_USER_START": {
+      return { ...state, fetching: true };
+    }
+    case "RECEIVED_USERS": {
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        users: action.payload,
+      };
+    }
+    case "FETCH_USERS_ERROR": {
+      return { ...state, fetching: false, error: action.payload };
+    }
+  }
+  return state;
+};
+
+// STEP 2.0
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(thunk, logger)) // the order in which we give the middlewares are loaded in same order, these middlewares are called by store before invoking the reducer, because it is a middleware
+);
+
+// STEP 3.0
+store.subscribe(() => {
+  console.log("store state is : ", store.getState());
+});
+
+// STEP 4.0
+// adding call back function dispatch so that we can asynchronously dipatch your actions with thunk
+// we no need to write thunk anywhere it will intercept directly if we use call back(dispatch1) like below
+store.dispatch((dispatch1) => {
+  dispatch1({ type: "FETCH_USER_START" });
+
+  // while executing above line thunk will not stop and it will execute below lines, to asynchronously apply UI
+  axios
+    .get("https://jsonplaceholder.typicode.com/users") //If api called successfully with 200 ok then below line "then" will be called
+    .then((response) => {
+      dispatch1({ type: "RECEIVED_USERS", payload: response.data });
+    })
+    .catch((error) => {
+      dispatch1({ type: "FETCH_USERS_ERROR", payload: error });
+    });
+});
+
+// Example 3 (end)

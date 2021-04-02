@@ -1,0 +1,29 @@
+React-Redux case study :
+-----------------------
+store:
+    id:''
+    fname:""
+    lname:""
+    age:0
+    description:""
+    media:""
+
+reducers:
+1. trainerlist-reducer
+2. trainerdetails-reducer
+
+middleware:
+1. thunk
+2. logger
+3. composeWithDevTools
+
+acions:
+1. trainer_clicked
+
+React: 
+containers:
+1. trainerlist-container
+2. trainerDetails-container
+
+Presentation:
+1. App component
