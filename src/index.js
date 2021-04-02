@@ -104,15 +104,15 @@ store.dispatch({ type: "CHANGE_AGE", payload: "26" }); */
 
 // Example 3 (start)  //Thunk and axios to invoke REST API
 
-import { createStore, applyMiddleware } from "redux";
+/* import { createStore, applyMiddleware } from "redux";
 import logger from "redux-logger";
 import thunk from "redux-thunk"; //npm install redux-thunk
 import { composeWithDevTools } from "redux-devtools-extension"; //For debug extension in chrome extensions
 import axios from "axios"; //npm install axios
 
-/* redux-thunk :
-  It is a middleware that allows you to asynchronously dipatch your actions in the 
-  reducer while data is comming from the server not blocking the page(by using loading page etc ).  */
+// redux-thunk :
+//   It is a middleware that allows you to asynchronously dipatch your actions in the 
+//   reducer while data is comming from the server not blocking the page(by using loading page etc ). 
 
 // STEP 1.0
 const initialState = {
@@ -169,6 +169,33 @@ store.dispatch((dispatch1) => {
     .catch((error) => {
       dispatch1({ type: "FETCH_USERS_ERROR", payload: error });
     });
-});
+}); */
 
 // Example 3 (end)
+
+// **********************************************************
+
+// Project 3 (start)
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux"; //react and redux will be connected by Provider
+
+import { createStore, applyMiddleware } from "redux";
+import allReducers from "./reducers";
+import App from "./components/App";
+import logger from "redux-logger";
+
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const store = createStore(
+  allReducers,
+  composeWithDevTools(applyMiddleware(logger))
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+// Project 3 (end)

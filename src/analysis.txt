@@ -27,3 +27,20 @@ containers:
 
 Presentation:
 1. App component
+----------------------------------
+
+Project steps
+1.  Created store and added dummy data
+
+2.  Created reducer-active-trainer.js
+    Created reducer-trainers.js
+
+    2.1-> reducer-trainers.js code done
+    2.2-> reducer-active-trainer.js code done
+    2.3-> created index.js to combine above both reducers
+
+3. 
+    3.1-> creating index.js in actions folder
+
+4.  
+    4.1-> trainer-list.js   (npm install react-redux --save)
