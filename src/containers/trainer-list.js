@@ -38,14 +38,14 @@ becoming the props of the component" so that whenever we use
 "this.props.key_name" we get back the state we need. */
 function mapStateToProps(state) {
   console.log("state: ", state);
-  return { trainers: state.trainers };
+  return { trainers: state.trainers }; // here trainers is present in "index.js" of "reducers"
 }
 
 //callback function2
 //same like store.dispatch({type:"TRAINER_SELECTED",paylaod:""})
 // When actions are clicked this will be called
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ st: selectTrainer }, dispatch);
+  return bindActionCreators({ st: selectTrainer }, dispatch); // Here selectTrainer is present in "index.js" of "actions"
 }
 
 //HOC

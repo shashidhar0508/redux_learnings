@@ -44,3 +44,31 @@ Project steps
 
 4.  
     4.1-> trainer-list.js   (npm install react-redux --save)
+
+
+1. Add dummy data in state(store.js)
+    We need to store the data which is store.js file to store
+    We can add data to store using store
+2. So we create "reducer-trainers.js" importing data and saving data in store
+    reducer-trainers.js stores data and returns the state with complete data
+3. We created "reducer-active-trainer.js" to get single person data based on the action
+    Here we need to pass the "action(which contains type and payload)" in order to get the data.
+    actions are passed to reducer using "store.dispatch"
+4. ONE REDUCER IS EQUAL TO SUB STATE(SUB TREE). All THE REDUCERS MUST BE COMBINED TO ONE SINGLE JAVASCRIPT FUNCTION
+    THAT IS THE REASON WE USE "COMBINEREDUCER" GIVEN BY REDUX TEAM.
+    HERE WE GIVE JSON OBJECT WITH REDUCRES. 
+5. We then need to bind this allreducers to store, so that "mapStateToProps" will work
+6. Once reducers are completed, we need to invoke reducers using actions, actions are event handlers
+    , event handlers contain function with parameters and the parameters are 1.type of action and 2.payload
+    , type of action are (button clicked etc), payloads are given to the reducer but actions are intercepting 
+    updating the payload and gives final payload to the reducers and reducers will update the store and the 
+    store will give the data to container(using "mapStateToProps") as we are using connect module in container(HOC).
+7. Now we need create actions "index.js" in "actions" folder.
+    In actions we write types of actions (like getEmployees function, deleteEmployees function etc),
+    and these functions will contain Business Access logic and Data Access login(AJAX calls, axios, thunk middleware)
+    and we return type and payload.
+    From these actions it will go to reducers and from reducers to store data will be updated.
+8. After this we write container "trainer-list.js" , here we are attaching two call backs
+        1. "mapStateToProps"() -> to get complete store state via reducers  
+        2. "matchDispatchToProps(dispatch)" -> invoking the actions to dispatch the action
+        We need to register(subscribe) these two call back functions using HOC called connect 
