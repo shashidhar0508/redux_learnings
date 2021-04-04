@@ -33,7 +33,9 @@ const reducer = function (state, action) {
 const middleware = applyMiddleware(logger);
 
 // STEP:2.1
-// creating store
+// CREATING STORE
+// Here name of reducer can be anything, reducer takes two parameters => 1. state, 2.action
+// Reducers can be called using dispatcher
 // const store = createStore(reducer, {});
 const store = createStore(reducer, 1, middleware); // Here reducer method is called
 
