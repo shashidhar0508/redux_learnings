@@ -1,1 +1,2 @@
 1. Our unit test file should end either with ".test" or ".spec"
+2. "Jest" is used here for unit testing

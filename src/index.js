@@ -187,6 +187,8 @@ import allReducers from "./reducers";
 import App from "./components/App";
 import logger from "redux-logger";
 
+import { store } from "./store";
+
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const store = createStore(
