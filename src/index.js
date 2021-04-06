@@ -177,8 +177,8 @@ store.dispatch((dispatch1) => {
 
 // **********************************************************
 
-// Project 3 (start)
-import React from "react";
+// Project 4 (start)
+/* import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux"; //react and redux will be connected by Provider
 
@@ -201,5 +201,26 @@ ReactDOM.render(
     <App />
   </Provider>,
   document.getElementById("root")
+); */
+// Project 4 (end)
+
+// **********************************************************
+
+// Project 4 (start) For Testing
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import App from "./App";
+
+const app = document.getElementById("root");
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  app
 );
-// Project 3 (end)
+
+// Project 4 (end) For Testing
